@@ -14,6 +14,8 @@ canvas.height = window.innerHeight + window.scrollY;
 const ctx = canvas.getContext("2d");
 let w = canvas.width;
 let h = canvas.height;
+ctx.lineWidth = 0.5;
+ctx.strokeStyle = "rgba(252, 17, 201, 1)";
 
 const scalingForm = document.getElementById("scaling-form");
 const ratioForm = document.getElementById("ratio-form");
@@ -72,6 +74,10 @@ const draw = () => {
       ctx.clearRect(0, 0, w, h);
       ctx.beginPath();
       ctx.ellipse(x, y, 20, 20, 0, 0, Math.PI * 2);
+      ctx.moveTo(0, y);
+      ctx.lineTo(w, y);
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, h);
       ctx.stroke();
     }
   }
