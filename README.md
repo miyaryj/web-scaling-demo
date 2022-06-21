@@ -1,15 +1,13 @@
-# 🚀 Welcome to your new awesome project!
+# web-scaling-demo
 
-This project has been created using **webpack-cli**, you can now run
+Demonstrate cordinate transformations by keeping specified positions.
 
 ```
-npm run build
+npm start
 ```
 
 or
 
 ```
-yarn build
+npm run build
 ```
-
-to bundle your application
