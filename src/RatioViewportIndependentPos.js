@@ -1,9 +1,7 @@
-const viewPortOffset = {};
+let _event;
 
 export function setMouseEvent(event) {
-  const ratio = window.devicePixelRatio / 1.25;
-  viewPortOffset.x = event.screenX - event.clientX * ratio;
-  viewPortOffset.y = event.screenY - event.clientY * ratio;
+  _event = event;
 }
 
 export default class RatioViewportIndependentPos {
@@ -12,24 +10,26 @@ export default class RatioViewportIndependentPos {
   constructor(x, y, systemRatio) {
     this._systemRatio = systemRatio;
     const ratio = window.devicePixelRatio / this._systemRatio;
-    const offset = {
-      x: window.screenX + viewPortOffset.x,
-      y: window.screenY + viewPortOffset.y,
-    };
-    this._pos.x = x * ratio + offset.x;
-    this._pos.y = y * ratio + offset.y;
+    const viewportOffset = this.viewportOffset();
+    this._pos.x = x * ratio + viewportOffset.screenX;
+    this._pos.y = y * ratio + viewportOffset.screenY;
     console.log("RatioViewportIndependentPos", this._pos);
   }
 
   restore() {
     const ratio = window.devicePixelRatio / this._systemRatio;
-    const offset = {
-      x: window.screenX + viewPortOffset.x,
-      y: window.screenY + viewPortOffset.y,
-    };
+    const viewportOffset = this.viewportOffset();
     return {
-      x: (this._pos.x - offset.x) / ratio,
-      y: (this._pos.y - offset.y) / ratio,
+      x: (this._pos.x - viewportOffset.screenX) / ratio,
+      y: (this._pos.y - viewportOffset.screenY) / ratio,
+    };
+  }
+
+  viewportOffset() {
+    const ratio = window.devicePixelRatio / this._systemRatio;
+    return {
+      screenX: _event.screenX - _event.clientX * ratio,
+      screenY: _event.screenY - _event.clientY * ratio,
     };
   }
 }

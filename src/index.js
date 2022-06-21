@@ -28,6 +28,7 @@ ratioForm.addEventListener("change", () => {
 });
 
 canvas.addEventListener("mouseup", (event) => {
+  console.log(event.screenX, event.screenY);
   let systemRatio;
   const ratioOption = ratioForm.elements["ratio-option"].value;
   switch (ratioOption) {
